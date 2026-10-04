@@ -239,7 +239,7 @@ class Hotkey:
 
 class App:
     def __init__(self):
-        self.app=QApplication.instance(); self.app.setQuitOnLastWindowClosed(False); self.s=S(); self.overlay=Overlay(self.s); self.tts=TTS(self.s); self.stt=STT(); self.rec=Recorder(self.s); self.brain=Brain(self.s,self.tts)
+        self.app=QApplication.instance() or QApplication(sys.argv); self.app.setQuitOnLastWindowClosed(False); self.s=S(); self.overlay=Overlay(self.s); self.tts=TTS(self.s); self.stt=STT(); self.rec=Recorder(self.s); self.brain=Brain(self.s,self.tts)
         self.hot=Hotkey(self.hotkey); self.tray()
         self.s.show.connect(self.overlay.show_center); self.s.hide.connect(self.overlay.hide)
         self.s.state.emit("sleep")
