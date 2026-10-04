@@ -1,0 +1,8 @@
+PySide6>=6.8
+pynput>=1.7.7
+sounddevice>=0.5.2
+vosk==0.3.45
+piper-tts==1.8.0
+requests>=2.32
+pyperclip>=1.9
+numpy>=2.0
