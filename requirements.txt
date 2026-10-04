@@ -1,5 +1,8 @@
-pyttsx3~=2.90
-wikipedia~=1.4.0
-PyAutoGUI~=0.9.54
-SpeechRecognition~=3.10.4
-pyjokes==0.6.0
+PySide6>=6.8
+pynput>=1.7.7
+sounddevice>=0.5.2
+vosk==0.3.45
+piper-tts==1.8.0
+requests>=2.32
+pyperclip>=1.9
+numpy>=2.0
