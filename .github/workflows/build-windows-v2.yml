@@ -7,8 +7,8 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.11"
           cache: pip
@@ -20,13 +20,25 @@ jobs:
           pip install pyinstaller
       - name: Build
         shell: pwsh
-        run: pyinstaller --noconfirm --clean --onefile --windowed --name JARVIS jarvis.py
+        run: |
+          pyinstaller --noconfirm --clean --onefile --windowed --name JARVIS `
+            --collect-all vosk `
+            --collect-all piper `
+            --collect-all piper_phonemize `
+            jarvis.py
+      - name: Verify executable
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "dist/JARVIS.exe")) {
+            throw "JARVIS.exe was not produced."
+          }
+          Get-Item "dist/JARVIS.exe" | Format-List Name,Length,FullName
       - name: Package
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force release | Out-Null
           Copy-Item dist/JARVIS.exe release/JARVIS.exe
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: JARVIS-Windows
-          path: release/
+          path: release/JARVIS.exe
